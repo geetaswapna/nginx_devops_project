@@ -15,11 +15,13 @@ pipeline {
             }
         }
 
-        stage('Run Container') {
-            steps {
-                sh 'docker rm -f mycontainer || true'
-                sh 'docker run -d -p 8080:80 --name mycontainer my-nginx-image'
-            }
-        }
-    }
+       stage('Run Container') {
+    steps {
+        sh '''
+            docker rm -f mycontainer || true
+            docker run -d -p 8080:80 --name mycontainer my-nginx-image
+        '''
+      }
+   }
+ }
 }
