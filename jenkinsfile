@@ -19,7 +19,7 @@ pipeline {
     steps {
         sh '''
             docker rm -f mycontainer || true
-            docker run -d -p 8080:80 --name mycontainer my-nginx-image
+            docker run -d -p 8081:80 --name mycontainer my-nginx-image
         '''
       }
    }
