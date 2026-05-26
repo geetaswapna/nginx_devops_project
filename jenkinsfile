@@ -3,25 +3,25 @@ pipeline {
 
     stages {
 
-        stage('Checkout') {
+        stage('Check Docker') {
             steps {
-                checkout scm
+                sh 'docker --version'
             }
         }
 
-        stage('Build Docker Image') {
+        stage('Build Image') {
             steps {
-                sh 'docker run -it --name my-nginx-image .'
+                sh 'docker build -t my-nginx-image .'
             }
         }
 
-       stage('Run Container') {
-    steps {
-        sh '''
-            docker rm -f mycontainer || true
-            docker run -d -p 8081:80 --name mycontainer my-nginx-image
-        '''
-      }
-   }
- }
+        stage('Run Container') {
+            steps {
+                sh '''
+                    docker rm -f mycontainer || true
+                    docker run -d -p 8081:80 --name mycontainer my-nginx-image
+                '''
+            }
+        }
+    }
 }
